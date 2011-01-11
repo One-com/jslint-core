@@ -373,6 +373,7 @@ var JSLINT = (function () {
             forin      : true, // if for in statements must filter
             fragment   : true, // if HTML fragments should be allowed
             newcap     : true, // if constructor names must be capitalized
+            nolint     : true, // if linting should be skipped
             nomen      : true, // if names should be checked
             on         : true, // if HTML event handlers should be allowed
             onevar     : true, // if only one var statement per function should be allowed
@@ -1360,6 +1361,10 @@ var JSLINT = (function () {
     }
 
     function warning(m, t, a, b, c, d) {
+        if (option.nolint) {
+            return;
+        }
+
         var ch, l, w;
         t = t || nexttoken;
         if (t.id === '(end)') {  // `~
@@ -6020,6 +6025,7 @@ loop:   for (;;) {
                     o.devel   =
                     o.evil    =
                     o.forin   =
+                    o.nolint  =
                     o.on      =
                     o.rhino   =
                     o.windows =
@@ -6159,7 +6165,7 @@ loop:   for (;;) {
             indent = null;
             advance('(end)');
         } catch (e) {
-            if (e) {        // `~
+            if (e && !option.nolint) {        // `~
                 JSLINT.errors.push({
                     reason    : e.message,
                     line      : e.line || nexttoken.line,
