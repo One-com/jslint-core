@@ -370,6 +370,7 @@ var JSLINT = (function () {
             devel      : true, // if logging should be allowed (console, alert, etc.)
             es5        : true, // if ES5 syntax should be allowed
             evil       : true, // if eval should be allowed
+            floop      : true, // if function creation in blocks should be allowed
             forin      : true, // if for in statements must filter
             fragment   : true, // if HTML fragments should be allowed
             newcap     : true, // if constructor names must be capitalized
@@ -4057,7 +4058,7 @@ loop:   for (;;) {
                 }
                 do_function(get, '');
                 if (funct['(loopage)']) {
-                    warning(bundle.function_loop, t);
+                    !option.floop && warning(bundle.function_loop, t);;
                 }
                 p = get.first;
                 if (p) {
@@ -4221,7 +4222,7 @@ loop:   for (;;) {
         }
         do_function(this, i);
         if (funct['(loopage)']) {
-            warning(bundle.function_loop);
+            !option.floop && warning(bundle.function_loop);
         }
         this.arity = 'function';
         return this;
@@ -6019,6 +6020,7 @@ loop:   for (;;) {
                     o.debug   =
                     o.devel   =
                     o.evil    =
+                    o.floop   =
                     o.forin   =
                     o.on      =
                     o.rhino   =
