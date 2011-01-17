@@ -6403,3 +6403,9 @@ loop:   for (;;) {
     return itself;
 
 }());
+
+/*jslint undef: false */
+/*member JSLINT */
+if (typeof exports !== 'undefined') {
+    exports.JSLINT = JSLINT;
+}
