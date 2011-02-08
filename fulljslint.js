@@ -372,6 +372,7 @@ var JSLINT = (function () {
             evil       : true, // if eval should be allowed
             floop      : true, // if function creation in blocks should be allowed
             forin      : true, // if for in statements must filter
+            fallthru   : true, // if fallthrough on switches should be tolerated
             fragment   : true, // if HTML fragments should be allowed
             newcap     : true, // if constructor names must be capitalized
             nomen      : true, // if names should be checked
@@ -4403,7 +4404,7 @@ loop:   for (;;) {
                         b = false;
                     }
                 } else {
-                    warning(bundle.missing_a_after_b, nexttoken, 'break', 'case');
+                    !option.fallthru && warning(bundle.missing_a_after_b, nexttoken, 'break', 'case');
                 }
             } else {
                 warning(bundle.empty_case);
@@ -6021,6 +6022,7 @@ loop:   for (;;) {
                     o.devel   =
                     o.evil    =
                     o.floop   =
+                    o.fallthru =
                     o.forin   =
                     o.on      =
                     o.rhino   =
